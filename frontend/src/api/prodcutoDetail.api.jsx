@@ -1,5 +1,5 @@
 import axios from "axios"
 
 export const getProductByid = (id) =>{
-    return axios.get(`http://127.0.0.1:8000/api/v1/productos/${id}/`)
+    return axios.get(`/api/v1/productos/${id}/`)
 }

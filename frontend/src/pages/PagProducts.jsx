@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../styles/PagProducts.css";
 import "../styles/buscador.css";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -6,7 +6,7 @@ import ProductCard from "../components/ProductCard";
 import Anuncios from "../components/Anuncios";
 
 function PagProducts({
-    products,
+    products = [],
     allProducts,
     total,
     setTotal,
@@ -17,33 +17,40 @@ function PagProducts({
     const [search, setSearch] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("Todas");
 
+    // Garantiza que 'safeProducts' sea un arreglo incluso si 'products' llega como null o undefined
+    const safeProducts = Array.isArray(products) ? products : [];
+
     const categories = [
         "Todas",
-        ...new Set(products.map((product) => product.categoria_nombre)),
+        ...new Set(
+            safeProducts
+                .map((product) => product?.categoria_nombre)
+                .filter(Boolean)
+        ),
     ];
-    const results = products.filter((product) => {
-        const matchesSearch = product.nombre
+
+    const results = safeProducts.filter((product) => {
+        const matchesSearch = (product?.nombre || "")
             .toLowerCase()
             .includes(search.toLowerCase());
 
         const matchesCategory =
             selectedCategory === "Todas" ||
-            product.categoria_nombre === selectedCategory;
+            product?.categoria_nombre === selectedCategory;
 
         return matchesSearch && matchesCategory;
     });
 
     return (
         <>
-            
-                <Anuncios posicion="top"/>
+            <Anuncios posicion="top"/>
             <div className='catalogoLayout'>
                 <aside className='filters'>
                     <div className='filterHeader'>
                         <h3>Filtros</h3>
                     </div>
                     <div className='filterSection'>
-                        <h4>Categorias</h4>
+                        <h4>Categorías</h4>
                         <div className='categoryList'>
                             {categories.map((category) => (
                                 <button
@@ -64,10 +71,9 @@ function PagProducts({
                     </div>
                 </aside>
 
-
                 <main className='productsArea'>
                     <div className='topPages'>
-                        <div className='buscador  '>
+                        <div className='buscador'>
                             <input
                                 placeholder='Buscar productos...'
                                 type='text'

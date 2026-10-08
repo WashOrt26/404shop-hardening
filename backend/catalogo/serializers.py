@@ -5,13 +5,13 @@ from .models import Categoria, Producto, VarianteProducto, Anuncio
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
-        fields = "__all__"
+        fields = ["id", "nombre", "descripcion", "posicion", "activo"]
 
 
 class VarianteProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = VarianteProducto
-        fields = "__all__"
+        fields = ["id","talle", "stock", "producto"]
 
 
 class ProductoSerializer(serializers.ModelSerializer):
@@ -27,8 +27,7 @@ class ProductoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Producto
-        fields = "__all__"
-
+        fields = '__all__'
 
 class AnuncioSerializer(serializers.ModelSerializer):
     class Meta:

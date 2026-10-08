@@ -9,13 +9,12 @@ function Anuncios({ posicion }) {
         const cargarAnuncios = async () => {
             try {
                 const data = await getAnuncios();
-
-                const anunciosFiltrados = data.filter(
-                    (anuncio) => anuncio.posicion === posicion,
-                );
-                setAnuncios(anunciosFiltrados);
+                // Garantiza que sea un array antes de aplicar .filter
+                const list = Array.isArray(data) ? data : (data?.results || []);
+                const activos = list.filter((anuncio) => anuncio.activo);
+                setAnuncios(activos);
             } catch (error) {
-                console.error("Error al cargar anuncios", error);
+                console.error("Error al cargar anuncios:", error);
             }
         };
         cargarAnuncios();

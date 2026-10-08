@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=True, cast=bool)
+DEBUG = False
 
-ALLOWED_HOSTS = ["localhost","127.0.0.1"]
+ALLOWED_HOSTS = ["localhost","127.0.0.1","192.168.1.138"]
 
 
 # Application definition
@@ -129,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -137,9 +138,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 #cors sirve para autorizar que servidor se puede conectar al api
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+CORS_ALLOWED_ORIGINS = ['http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'http://192.168.1.138:5173',
+    'https://192.168.1.138',]
 
+# Reconocer el protocolo HTTPS cuando venga de un proxy inverso
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+##Forzar flags 'Secure' en cookies de sesión y CSRF
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Cabeceras de proteccion del navegador contra XSS y Clickjacking
+SECURE_BROWSER_XSS_FILTER = True
+#SECURE_CONTENT_TYPE_NOSNIFF = True
+#X_FRAME_OPTIONS = 'DENY'
 
 JAZZMIN_SETTINGS = {
     "site_title": "404Shop Admin",

@@ -16,13 +16,19 @@ function App() {
     const [countProducts, setCountProducts] = useState(0);
 
     useEffect(() => {
-        async function loadProducts() {
+    async function loadProducts() {
+        try {
             const res = await productsapi();
-            setProducts(res.data);
+            const dataArray = Array.isArray(res.data) ? res.data : (res.data?.results || []);
+            setProducts(dataArray);
+        } catch (error) {
+            console.error("Error al cargar productos:", error);
+            setProducts([]);
         }
+    }
 
-        loadProducts();
-    }, []);
+    loadProducts();
+}, []);
 
     useEffect(() => {
         const newTotal = allProducts.reduce(
