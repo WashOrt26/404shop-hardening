@@ -23,7 +23,7 @@ A través de un proceso de bastionado iterativo, se logró:
 
 ## 2. Arquitectura del sistema
 
-![image.png](Informe%20de%20Auditor%C3%ADa%20y%20Bastionado%20de%20Seguridad%20(Ha/image.png)
+![Arquitectura.png](assets/img1.png)
 
 ## Fase 1: reconocimiento, despliegue e identificacion inicial
 
@@ -140,7 +140,7 @@ Realice diferentes pruebas de penetracion sencillas sobre la aplicacion y la inf
     ALLOWED_HOSTS = ["localhost","127.0.0.1", "192.168.1.138"]
     ```
     
-    ![image.png](Informe%20de%20Auditor%C3%ADa%20y%20Bastionado%20de%20Seguridad%20(Ha/image%201.png)
+![image2.png](assets/img2.png)
     
 
 ```jsx
@@ -177,9 +177,9 @@ Aqui se evidencia como se esta escupiendo la estructura completa de la base de d
 
 ## Fase 3: hallazgos / vulnerabilidades encontradas
 
-![image.png](Informe%20de%20Auditor%C3%ADa%20y%20Bastionado%20de%20Seguridad%20(Ha/image%202.png)
+![image3.png](assets/img3.png)
 
-![image.png](Informe%20de%20Auditor%C3%ADa%20y%20Bastionado%20de%20Seguridad%20(Ha/image%203.png)
+![image4.png](assets/img4.png)
 
 sniffing de red multidispositivos (wireshark)
 
@@ -496,7 +496,7 @@ docker compose exec backend python manage.py collectstatic --noinput
 
 levante el frontend y al poner mi ip dinamica como direccion, efectivamente me redirecciona a https://… en vez de http://…, al ser un certificado autofirmado, me da una advertencia pero puedo continuar y todo esta en orden
 
-![image.png](Informe%20de%20Auditor%C3%ADa%20y%20Bastionado%20de%20Seguridad%20(Ha/image%204.png)
+![image5.png](assets/img5.png)
 
 ## Fase 5: Pruebas de seguridad para comprobar que el endurecimiento
 
@@ -561,7 +561,7 @@ Luego de todos los cambios, voy a presentar el documento detalladamente con las 
     
     petición con error forzado 
     
-    ![image.png](Informe%20de%20Auditor%C3%ADa%20y%20Bastionado%20de%20Seguridad%20(Ha/image%205.png)
+    ![image6.png](assets/img6.png)
     
     ### Auditoría de Vulnerabilidades Dinámicas (DAST) con OWASP ZAP
     
@@ -574,7 +574,7 @@ Luego de todos los cambios, voy a presentar el documento detalladamente con las 
     - **Riesgo Bajo:** 3 (Exposición de versión en el header `Server: nginx/1.31.6`, flags de cookies).
     - **Informacionales:** 4
     
-    ![image.png](Informe%20de%20Auditor%C3%ADa%20y%20Bastionado%20de%20Seguridad%20(Ha/image%206.png)
+    ![image7.png](./assets/img7.png)
     
     #### Conclusión del Análisis:
     
