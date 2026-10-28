@@ -1,6 +1,6 @@
 
 services:
- # Base de datos aislada
+  # Base de datos aislada
   db:
     image: postgres:15
     container_name: postgres_db
@@ -14,8 +14,7 @@ services:
     networks:
       - backend_network
 
-
-# Backend (Servidor WSGI/Django pero ahora con Gunicorn)
+  # Backend (Django con Gunicorn)
   backend:
     build:
       context: ./backend
@@ -33,7 +32,16 @@ services:
       - backend_network
       - frontend_network
 
-# Proxy inverso y terminador ssl (Nginx)
+  # NUEVO: Frontend (React / Vite compilado)
+  frontend:
+    build:
+      context: ./frontend
+    container_name: react_frontend
+    restart: always
+    networks:
+      - frontend_network
+
+  # Proxy inverso (Nginx unificado)
   nginx:
     image: nginx:alpine
     container_name: 404shop_proxy
@@ -48,6 +56,7 @@ services:
       - media_volume:/app/media:ro
     depends_on:
       - backend
+      - frontend
     networks:
       - frontend_network
 
